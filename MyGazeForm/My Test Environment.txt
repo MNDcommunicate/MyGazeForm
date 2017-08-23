@@ -1,0 +1,16 @@
+Hardware: 80HE, CPU: Intel(R) Core(TM) M-5Y71 CPU @ 1.20GHz, RAM: 8GB
+OS Version: Microsoft Windows [Version 10.0.15063.0] x64
+Tobii Eye Tracking Core SW 2.10.0.6432
+Eye tracker model IS4 Large Peripheral
+Serial number IS404-100106041262
+Firmware 2.18.0-fff1f21
+Tobii Controller Core Not available
+Tobii USB Service Not available
+Tobii Controller Driver 2.0.4
+Tobii Service 1.21.0.7209
+Tobii Engine 1.21.0.8242
+Tobii Config 4.7.0.942
+Tobii Interaction 2.10.0.4588
+Tobii Face Authentication for Windows Hello 1.0.21.207
+Tobii Overview 1.0.2.104
+Tobii Intro 1.0.3.173

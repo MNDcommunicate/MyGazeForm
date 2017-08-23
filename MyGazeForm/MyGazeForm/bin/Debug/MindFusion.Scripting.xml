@@ -1,0 +1,2090 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MindFusion.Scripting</name>
+    </assembly>
+    <members>
+        <member name="T:MindFusion.Scripting.ByteCode">
+            <summary>
+            Encapsulates the compiled result of a parsed tree and performs
+            evaluations against that compiled result in various contexts.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Empty">
+            <summary>
+            Creates and returns an empty byte code. Evaluating empty byte code
+            will produce null as a result.
+            </summary>
+            <returns>
+            An empty instance of the ByteCode class.
+            </returns>
+            <remarks>
+            Calling this method multiple times will return different instances.
+            </remarks>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.#ctor(MindFusion.Scripting.ParseTreeNode)">
+            <summary>
+            Initializes a new instance of the ByteCode class from the
+            specified parse tree root.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.BuildCode(MindFusion.Scripting.ParseTreeNode)">
+            <summary>
+            Builds a byte code from the subtree defined by the specified tree node.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.ParseColor(System.String)">
+            <summary>
+            Attempts to parse the specified text as a color.
+            </summary>
+            <remarks>
+            The color object itself is platform-dependent so the parse	
+            implementation is delegated to the client during code evaluation.
+            </remarks>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Evaluate(MindFusion.Scripting.EvaluationContext)">
+            <summary>
+            Evaluates the byte code in the specified context.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Evaluate(System.Object,MindFusion.Scripting.EvaluationContext)">
+            <summary>
+            Evaluates the specified object.
+            </summary>
+            <remarks>
+            If the object is a MemberInfo, returns its value.
+            If the object is an Identifier, returns its value.
+            If the object is a Color, tries to parse it through the context.
+            Otherwise, returns the object itself.
+            </remarks>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.code">
+            <summary>
+            The "byte" code.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.stack">
+            <summary>
+            A temporary object used during code generation.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.ByteCode.Length">
+            <summary>
+            Gets the number of elements in the code.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.ByteCode.Item(System.Int32)">
+            <summary>
+            Gets the element at the specified position within the code.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.ByteCode.Identifiers">
+            <summary>
+            Gets the list with all identifiers within the code. There is no
+            guarantee that this list will contain unique entries, thus, if
+            an identifier is encountered several times in the initial sequence,
+            it will appear several times in the returned list.
+            </summary>
+        </member>
+        <member name="T:MindFusion.Scripting.ByteCode.Calc">
+            <summary>
+            Provides numeric calculation operators.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Calc.#cctor">
+            <summary>
+            Static constructor.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Calc.Promote(System.Object,System.Type)">
+            <summary>
+            Promotes the specified value to the specified type.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Calc.Do(System.Object,MindFusion.Scripting.ByteCode.Op)">
+            <summary>
+            Performs the specified unary operation on the specified argument.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Calc.Do(System.Object,System.Object,MindFusion.Scripting.ByteCode.Op)">
+            <summary>
+            Performs the specified operation on the specified arguments.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Calc.Compare(System.IComparable,System.IComparable,MindFusion.Scripting.ByteCode.Op)">
+            <summary>
+            Performs the specified comparison operation on the specified arguments.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Calc.Do(System.Boolean,System.Boolean,MindFusion.Scripting.ByteCode.Op)">
+            <summary>
+            Performs the specified operation on the specified arguments.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Calc.Do(System.SByte,System.SByte,MindFusion.Scripting.ByteCode.Op)">
+            <summary>
+            Performs the specified operation on the specified arguments.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Calc.Do(System.Byte,System.Byte,MindFusion.Scripting.ByteCode.Op)">
+            <summary>
+            Performs the specified operation on the specified arguments.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Calc.Do(System.Int16,System.Int16,MindFusion.Scripting.ByteCode.Op)">
+            <summary>
+            Performs the specified operation on the specified arguments.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Calc.Do(System.UInt16,System.UInt16,MindFusion.Scripting.ByteCode.Op)">
+            <summary>
+            Performs the specified operation on the specified arguments.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Calc.Do(System.Int32,System.Int32,MindFusion.Scripting.ByteCode.Op)">
+            <summary>
+            Performs the specified operation on the specified arguments.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Calc.Do(System.UInt32,System.UInt32,MindFusion.Scripting.ByteCode.Op)">
+            <summary>
+            Performs the specified operation on the specified arguments.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Calc.Do(System.Int64,System.Int64,MindFusion.Scripting.ByteCode.Op)">
+            <summary>
+            Performs the specified operation on the specified arguments.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Calc.Do(System.UInt64,System.UInt64,MindFusion.Scripting.ByteCode.Op)">
+            <summary>
+            Performs the specified operation on the specified arguments.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Calc.Do(System.Decimal,System.Decimal,MindFusion.Scripting.ByteCode.Op)">
+            <summary>
+            Performs the specified operation on the specified arguments.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Calc.Do(System.Single,System.Single,MindFusion.Scripting.ByteCode.Op)">
+            <summary>
+            Performs the specified operation on the specified arguments.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Calc.Do(System.Double,System.Double,MindFusion.Scripting.ByteCode.Op)">
+            <summary>
+            Performs the specified operation on the specified arguments.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.Calc.Do(System.String,System.String,MindFusion.Scripting.ByteCode.Op)">
+            <summary>
+            Performs the specified operation on the specified arguments.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Calc.typePriority">
+            <summary>
+            Contains the priority of the types. Objects are promoted to types
+            of higher priority when performing operation on different types.
+            </summary>
+        </member>
+        <member name="T:MindFusion.Scripting.ByteCode.OperationAttribute">
+            <summary>
+            An attribute specifying that an Op field indicates an operation.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.OperationAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the OperationAttribute class.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ByteCode.OperationAttribute.#ctor(System.Boolean)">
+            <summary>
+            Initializes a new instance of the OperationAttribute class.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.OperationAttribute.unary">
+            <summary>
+            A flag indicating whether the operation is unary or binary.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.ByteCode.OperationAttribute.Unary">
+            <summary>
+            Gets or sets a value indicating whether the operation is unary
+            or binary.
+            </summary>
+        </member>
+        <member name="T:MindFusion.Scripting.ByteCode.Op">
+            <summary>
+            Specifies the type of an operation or data.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Text">
+            <summary>
+            Indicates a text.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Float">
+            <summary>
+            Indicates a floating point number.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Int">
+            <summary>
+            Indicates an integer number.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.String">
+            <summary>
+            Indicates a string literal within an expression.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Null">
+            <summary>
+            Indicates the 'null' keyword.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Color">
+            <summary>
+            Indicates a color literal.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Add">
+            <summary>
+            Indicates an addition operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Sub">
+            <summary>
+            Indicates a subtraction operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Minus">
+            <summary>
+            Indicates an unary minus operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Mul">
+            <summary>
+            Indicates a multiplication operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Div">
+            <summary>
+            Indicates a division operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Mod">
+            <summary>
+            Indicates an integer division operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Less">
+            <summary>
+            Indicates a less than comparison operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Greater">
+            <summary>
+            Indicates a greater than comparison operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Equal">
+            <summary>
+            Indicates an equality comparison operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.NotEqual">
+            <summary>
+            Indicates a not equality comparison operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.LessOrEqual">
+            <summary>
+            Indicates a less than or equal comparison operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.GreaterOrEqual">
+            <summary>
+            Indicates a greater than or equal comparison operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Not">
+            <summary>
+            Indicates a boolean negation opeation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.And">
+            <summary>
+            Indicates a bitwise and operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Xor">
+            <summary>
+            Indicates a bitwise exclusive or operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Or">
+            <summary>
+            Indicates a bitwise or operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.ConditionalAnd">
+            <summary>
+            Indicates a conditional and operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.ConditionalOr">
+            <summary>
+            Indicates a conditional or operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Dot">
+            <summary>
+            Indicates a member access operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Assign">
+            <summary>
+            Indicates an assignment operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Format">
+            <summary>
+            Indicates a formatting specifier.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Culture">
+            <summary>
+            Indicates a culture specifier.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Formatting">
+            <summary>
+            Indicates a formatting operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Discard">
+            <summary>
+            Indicates a discard operation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.FunctionCall">
+            <summary>
+            Indicates a function call.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.Identifier">
+            <summary>
+            Indicates an identifier.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.ObjectOrMember">
+            <summary>
+            Indicates an identifier representing an object or a member reference.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ByteCode.Op.ExpressionSeparator">
+            <summary>
+            Indicates expression separator.
+            </summary>
+        </member>
+        <member name="T:MindFusion.Scripting.Identifier">
+            <summary>
+            Represents identifiers in the code evaluation stack.
+            The identifier is then either evaluated or assigned depending
+            on where it appears in an expression.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Identifier.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the Identifier class.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.Identifier.Name">
+            <summary>
+            Gets the name of the identifier.
+            </summary>
+        </member>
+        <member name="T:MindFusion.Scripting.Color">
+            <summary>
+            Represents a color in the code. The actual platform-specific color object
+            is created during code evaluation.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Color.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the Color object.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.Color.Representation">
+            <summary>
+            Gets the string representation of the color.
+            </summary>
+        </member>
+        <member name="T:MindFusion.Scripting.TokenType">
+            <summary>
+            Specifies the type of a token.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.Text">
+            <summary>
+            Indicates a free text token.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.Null">
+            <summary>
+            Indicates the 'null' keyword.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.Ws">
+            <summary>
+            Indicates a whitespace token.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.Osb">
+            <summary>
+            Indicates an opening square bracket.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.Csb">
+            <summary>
+            Indicates a closing square bracket.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.Ob">
+            <summary>
+            Indicates an opening bracket.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.Cb">
+            <summary>
+            Indicates a closing bracket.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.Identifier">
+            <summary>
+            Indicates an identifier.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.FunctionCall">
+            <summary>
+            Indicates a function invokation.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.ExpressionList">
+            <summary>
+            Indicates a list of expressions.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.FloatNumber">
+            <summary>
+            Indicates a floating point number.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.IntNumber">
+            <summary>
+            Indicates an integer number.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.String">
+            <summary>
+            Indicates a string literal.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.Color">
+            <summary>
+            Indicates a color literal.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpAdd">
+            <summary>
+            Indicates an addition operator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpSubtract">
+            <summary>
+            Indicates a subtraction operator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpMultiply">
+            <summary>
+            Indicates a multiplication operator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpDivide">
+            <summary>
+            Indicates a division operator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpMod">
+            <summary>
+            Indicates a modus operator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpLess">
+            <summary>
+            Indicates a less than comparison operator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpGreater">
+            <summary>
+            Indicates a greater than comparison operator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpEqual">
+            <summary>
+            Indicates an equal comparison operator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpNotEqual">
+            <summary>
+            Indicates a not equal comparison operator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpLessOrEqual">
+            <summary>
+            Indicates a less than or equal comparison operator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpGreaterOrEqual">
+            <summary>
+            Indicates a greater than or equal comparison operator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpNot">
+            <summary>
+            Indicates a boolean negation opeator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpAnd">
+            <summary>
+            Indicates a bitwise and operator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpXor">
+            <summary>
+            Indicates a bitwise exclusive or operator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpOr">
+            <summary>
+            Indicates a bitwise or operator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpConditionalAnd">
+            <summary>
+            Indicates a conditional and operator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpConditionalOr">
+            <summary>
+            Indicates a conditional or operator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpDot">
+            <summary>
+            Indicates a member access operator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpAssign">
+            <summary>
+            Indicates an assignment operator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.Comma">
+            <summary>
+            Indicates a comma.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpFormat">
+            <summary>
+            Indicates a formatting operator.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.Format">
+            <summary>
+            Indicates a formatting string.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.Discard">
+            <summary>
+            Indicates a discarding symbol, that is, a symbol, which when
+            specified as a format will prevent the expression from appearing
+            in the final text.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpCulture">
+            <summary>
+            Indicates a culture specifier.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.Culture">
+            <summary>
+            Indicates a culture name.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.TokenType.OpExpressionSeparator">
+            <summary>
+            Indicates a separator between expressions.
+            </summary>
+        </member>
+        <member name="T:MindFusion.Scripting.EvaluationContext">
+            <summary>
+            Provides a context for evaluating a byte code.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the EvaluationContext class
+            for the specified object.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.#ctor(System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Initializes a new instance of the EvaluationContext class
+            for the specified object and culture.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.InvokeFunction(System.String,System.Object[])">
+            <summary>
+            Invokes the function with the specified name.
+            </summary>
+            <param name="name">
+            The name of the function to invoke.
+            </param>
+            <param name="p">
+            The list of arguments of the function.
+            </param>
+            <returns>
+            The result of the invocation.
+            </returns>
+            <remarks>
+            If the specified name does not match any of the built-in functions,
+            the DispatchFunctionCall is raised.
+            </remarks>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.GetDate(System.Object)">
+            <summary>
+            Returns the specified value as a date.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.GetBool(System.Object)">
+            <summary>
+            Returns the specified value as a boolean.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.GetInt32(System.Object)">
+            <summary>
+            Returns the specified value as an integer.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.GetInt64(System.Object)">
+            <summary>
+            Returns the specified value as a long.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.GetDouble(System.Object)">
+            <summary>
+            Returns the specified value as a double.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.GetString(System.Object)">
+            <summary>
+            Returns the specified value as a string.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.EvaluateIdentifier(System.String)">
+            <summary>
+            Evaluates the identifier with the specified name.
+            </summary>
+            <param name="name">
+            The identifier to evaluate.
+            </param>
+            <returns>
+            The result of the evaluation.
+            </returns>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.EvaluateMember(System.Object,System.String,System.Boolean)">
+            <summary>
+            Evaluates the member with the specified name against the specified target.
+            </summary>
+            <param name="target">
+            The target object.
+            </param>
+            <param name="name">
+            The name of the member.
+            </param>
+            <param name="last">
+            Indicates whether the resolved member is the last in a sequence of member references.
+            For example, in the following expression "A.B.C", when A.B is being resolved, last is
+            set to false, and when R.C is being resolved (where R is the value of A.B), last is
+            set to true.
+            </param>
+            <returns>
+            The value of the member.
+            </returns>
+            <remarks>
+            Member references are evaluated automatically. This method is called when
+            a member references could not be resolved through reflection.
+            </remarks>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.AssignIdentifier(System.String,System.Object)">
+            <summary>
+            Assigns a value to the identifier with the specified name.
+            If the identifier is not definied it is automatically defined.
+            </summary>
+            <param name="name">
+            The identifier to assign.
+            </param>
+            <param name="value">
+            The new value.
+            </param>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.Format(System.Object,System.String,System.Globalization.CultureInfo)">
+            <summary>
+            Formats the specified value according to the specified format.
+            </summary>
+            <param name="value">
+            The value to format.
+            </param>
+            <param name="format">
+            The formatting specifier to use.
+            </param>
+            <param name="culture">
+            The culture to use when performing the formatting.
+            </param>
+            <returns>
+            The string representing the value formatted according to the
+            specified format.
+            </returns>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.FindObject(System.String)">
+            <summary>
+            Finds the object with the specified name. For example, 'this'
+            yields the underlying target.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.CreateMemberInfo(System.String,System.String)">
+            <summary>
+            Creates a MemberInfo object representing a property with the
+            specified name on the specified object.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.CreateMemberInfo(MindFusion.Scripting.MemberInfo,System.String)">
+            <summary>
+            Creates a MemberInfo object representing a property with the
+            specified name on the object represented by the specified MemberInfo.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.AssignValue(MindFusion.Scripting.MemberInfo,System.Object)">
+            <summary>
+            Assigns the specified value to the property represented by the
+            specified descriptor.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.IsTargetProperty(System.String)">
+            <summary>
+            Returns whether the underlying object exposes a public property with
+            the specified name.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.OnDispatchFunctionCall(MindFusion.Scripting.EvaluateFunctionEventArgs)">
+            <summary>
+            Raises the DispatchFunctionCall event.
+            </summary>
+            <param name="e">
+            An object, containing the event data.
+            </param>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.OnParseObject(MindFusion.Scripting.ParseObjectEventArgs)">
+            <summary>
+            Raises the ParseObject event.
+            </summary>
+            <param name="e">
+            An object, containing the event data.
+            </param>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluationContext.DoParseObject(System.String)">
+            <summary>
+            Invoked during evaluation to parse an object.
+            </summary>
+            <remarks>
+            Upon failure to parse, the string representation is returned as a result.
+            </remarks>
+        </member>
+        <member name="F:MindFusion.Scripting.EvaluationContext.target">
+            <summary>
+            The object this context will operate on.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.EvaluationContext.cultureInfo">
+            <summary>
+            The culture associated with the context.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.EvaluationContext.functions">
+            <summary>
+            Implementation of most available functions.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.EvaluationContext.localVars">
+            <summary>
+            A collection with defined variables and their values.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.EvaluationContext.dispatchFunctionParam">
+            <summary>
+            The user-defined object passed to the DispatchFunctionCall event.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.EvaluationContext.DispatchFunctionParam">
+            <summary>
+            Gets or sets a user-defined object passed to the DispatchFunctionCall event.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.EvaluationContext.CultureInfo">
+            <summary>
+            Gets or sets the culture associated with the context.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.EvaluationContext.LocalVars">
+            <summary>
+            Gets a collection with defined variables and their values.
+            </summary>
+        </member>
+        <member name="E:MindFusion.Scripting.EvaluationContext.DispatchFunctionCall">
+            <summary>
+            Raised by the EvaluationContext when a function name cannot be recognized
+            as one of the built-in functions to allow clients to evaluate the function call.
+            </summary>
+        </member>
+        <member name="E:MindFusion.Scripting.EvaluationContext.ParseObject">
+            <summary>
+            Raised by the EvaluationContext when an object needs to be parsed from its
+            string representation and the parser is either not able to parse it or not
+            able to create an object of the respective type.
+            </summary>
+            <remarks>
+            A common case for this event to occur is when parsing a color object - where
+            the actual platform-specific type is not known beforehand.
+            </remarks>
+        </member>
+        <member name="T:MindFusion.Scripting.EvaluateFunctionEventArgs">
+            <summary>
+            Contains the arguments passed to DispatchFunctionCall event handlers.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.EvaluateFunctionEventArgs.#ctor(System.String,System.Object[],System.Object)">
+            <summary>
+            Initializes a new instance of the EvaluateFunctionEventArgs class.
+            </summary>
+            <param name="name">
+            The name of the function.
+            </param>
+            <param name="arguments">
+            The list of arguments to pass to the function.
+            </param>
+            <param name="param">
+            An object that should be passed as an argument to the function evaluation callback.
+            </param>
+        </member>
+        <member name="P:MindFusion.Scripting.EvaluateFunctionEventArgs.Name">
+            <summary>
+            Gets the name of the function to evaluate.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.EvaluateFunctionEventArgs.Arguments">
+            <summary>
+            Gets the list of the function's arguments.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.EvaluateFunctionEventArgs.Result">
+            <summary>
+            Gets or sets the result of the function evaluation. An attempt to
+            get the value of this property before it was set results in an exception.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.EvaluateFunctionEventArgs.IsEvaluated">
+            <summary>
+            Gets a value indicating whether the function has been evaluated.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.EvaluateFunctionEventArgs.Param">
+            <summary>
+            Gets the user-defined object set to the EvaluationContext.DispatchFunctionParam.
+            </summary>
+        </member>
+        <member name="T:MindFusion.Scripting.ParseObjectEventArgs">
+            <summary>
+            Contains the arguments passed to ParseObject event handlers.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ParseObjectEventArgs.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the ParseObjectEventArgs class.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.ParseObjectEventArgs.ValueAsString">
+            <summary>
+            Gets the string representation of the object to be parsed.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.ParseObjectEventArgs.IsParsed">
+            <summary>
+            Gets a value indicating whether the object has been parsed.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.ParseObjectEventArgs.Result">
+            <summary>
+            Gets or sets the parsed object.
+            </summary>
+        </member>
+        <member name="T:MindFusion.Scripting.ParseTreeNode">
+            <summary>
+            Represents a node in a parse tree.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ParseTreeNode.#ctor">
+            <summary>
+            Initializes a new instance of the ParseTreeNode class.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.ParseTreeNode.#ctor(MindFusion.Scripting.Token)">
+            <summary>
+            Initializes a new instance of the ParseTreeNode class.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ParseTreeNode.token">
+            <summary>
+            The underlying token (if any) or null.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.ParseTreeNode.children">
+            <summary>
+            The child nodes.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.ParseTreeNode.Children">
+            <summary>
+            Gets the list with all children of this node.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.ParseTreeNode.Token">
+            <summary>
+            Gets the underlying token.
+            </summary>
+        </member>
+        <member name="T:MindFusion.Scripting.MemberInfo">
+            <summary>
+            Encapsulates the information required to identify a specific member
+            of a particular object.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.MemberInfo.#ctor(System.Object,System.String,MindFusion.Scripting.EvaluationContext)">
+            <summary>
+            Initializes a new instance of the MemberInfo class for the
+            specified object and the property with the specified name.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.MemberInfo.#ctor(MindFusion.Scripting.MemberInfo,System.String,MindFusion.Scripting.EvaluationContext)">
+            <summary>
+            Initializes a new instance of the MemberInfo class with the object
+            identified by the property defined by the specified MemberInfo and
+            the property with the specified name.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.MemberInfo.target">
+            <summary>
+            The target object.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.MemberInfo.property">
+            <summary>
+            The underlying object's property.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.MemberInfo.isMemberInfo">
+            <summary>
+            A flag indicating whether the underlying object is of type MemberInfo
+            instead of a direct object reference. The actual object can be obtained
+            by inspecting the value of the MemberInfo.Value property.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.MemberInfo.propertyName">
+            <summary>
+            For the same reason as above - if the underlying object is a MemberInfo,
+            the actual property descriptor is obtained later, when the value is get or set.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.MemberInfo.context">
+            <summary>
+            An object that can be used to resolve member references which fail
+            to resolve through reflection.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.MemberInfo.Value">
+            <summary>
+            Returns the value of the represented property.
+            </summary>
+        </member>
+        <member name="T:MindFusion.Scripting.Lexer">
+            <summary>
+            Provides capabilities for recognizing character sequences of
+            the MindFusion Grammar.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.#cctor">
+            <summary>
+            Static constructor.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the Lexer class.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.Match(System.Char)">
+            <summary>
+            Matches the specified character against the character
+            at the current position within the underlying string.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.Match(System.String)">
+            <summary>
+            Matches the specified string against the substring at the
+            current position within the underlying string.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.Match(System.Text.RegularExpressions.Regex,System.Int32@)">
+            <summary>
+            Matches the specified regex against the string starting
+            from the current position within the underlying string.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.Ws">
+            <summary>
+            Recognizes a whitespace token.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.Ob">
+            <summary>
+            Recognizes an opening bracket.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.Cb">
+            <summary>
+            Recognizes a closing bracket.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.Osb">
+            <summary>
+            Recognizes an opening square bracket.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.Csb">
+            <summary>
+            Recognizes a closing square bracket.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpAdd">
+            <summary>
+            Recognizes an addition operator '+'.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpSubtract">
+            <summary>
+            Recognizes a subtraction operator '-'.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpMultiply">
+            <summary>
+            Recognizes a multiplication operator '*'.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpDivide">
+            <summary>
+            Recognizes a division operator '/'.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpMod">
+            <summary>
+            Recognizes a modus operator '%'.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpLess">
+            <summary>
+            Recognizes a less than comparison operator '&lt;'.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpGreater">
+            <summary>
+            Recognizes a greater than comparison operator '&gt;'.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpAssign">
+            <summary>
+            Recognizes an assignment operator '='.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpEqual">
+            <summary>
+            Recognizes an equal comparison operator '=='.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpNotEqual">
+            <summary>
+            Recognizes a not equal comparison operator '&lt;&gt;'.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpLessOrEqual">
+            <summary>
+            Recognizes a less than or equal comparison operator '&lt;='.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpGreaterOrEqual">
+            <summary>
+            Recognizes a greater than or equal comparison operator '&gt;='.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpNot">
+            <summary>
+            Recognizes a boolean negation operator '!'.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpAnd">
+            <summary>
+            Recognizes a bitwise and operator '&amp;'.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpOr">
+            <summary>
+            Recognizes a bitwise or operator '|'.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpXor">
+            <summary>
+            Recognizes a bitwise or operator '^'.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpConditionalAnd">
+            <summary>
+            Recognizes a conditional and operator '&amp;&amp;'.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpConditionalOr">
+            <summary>
+            Recognizes a conditional or operator '||'.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpDot">
+            <summary>
+            Recognizes a member access operator '.'.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpFormat">
+            <summary>
+            Recognizes the formatting operator '@'.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.OpCulture">
+            <summary>
+            Recognizes the culture specifier ':' within a format.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.Comma">
+            <summary>
+            Recognizes comma.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.Text">
+            <summary>
+            Recognizes free text.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.Identifier">
+            <summary>
+            Recognizes an identifier.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.IntNumber">
+            <summary>
+            Recognizes an integer number.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.Null">
+            <summary>
+            Recognizes a 'null' keyword.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.String">
+            <summary>
+            Recognizes a string literal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.FloatNumber">
+            <summary>
+            Recognizes a float number.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.Color">
+            <summary>
+            Recognizes a color.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.Format">
+            <summary>
+            Recognizes a formatting specifier.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.Discard">
+            <summary>
+            Recognizes a discard symbol.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Lexer.Culture">
+            <summary>
+            Recognizes a culture name.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.Lexer.identifierRegex">
+            <summary>
+            Identifier regular expression.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.Lexer.textRegex">
+            <summary>
+            Free text regular expression.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.Lexer.intNumberRegex">
+            <summary>
+            Integer number regular expression.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.Lexer.floatNumberRegex">
+            <summary>
+            Float number regular expression.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.Lexer.colorRegex">
+            <summary>
+            Color regular expression.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.Lexer.wsRegex">
+            <summary>
+            Whitespace regular expression.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.Lexer.tokens">
+            <summary>
+            The sequence of recognized tokens.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.Lexer.current">
+            <summary>
+            The current processing position.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.Lexer.input">
+            <summary>
+            The input string.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.Lexer.inExp">
+            <summary>
+            A flag indicating whether currently in expression.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.Lexer.inFormat">
+            <summary>
+            A flag indicating whether currently in format specifier.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.Lexer.inCulture">
+            <summary>
+            A flag indicating whether currently in culture specifier.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.Lexer.Tokens">
+            <summary>
+            Gets the list of tokens produced by the lexer.
+            </summary>
+        </member>
+        <member name="T:MindFusion.Scripting.Parser">
+            <summary>
+            Provides parsing capabilities for token lists previously generated
+            by processing character sequences through a Lexer.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.#ctor(System.Collections.Generic.List{MindFusion.Scripting.Token})">
+            <summary>
+            Initializes a new instance of the Parser class.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.Document">
+            <summary>
+            Returns a ParseTreeNode corresponding to the parsed tree starting
+            at the 'document' nonterminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.document">
+            <summary>
+            Parses a 'document' nonterminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.expression">
+            <summary>
+            Parses an 'expression' nonterminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.statementListExpression">
+            <summary>
+            Parses an 'statementListExpression' nonterminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.formatExpression">
+            <summary>
+            Parses a 'formatExpression' nonterminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.assignmentListExpression">
+            <summary>
+            Parses an 'assignmentListExpression' nonterminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.assignmentExpression">
+            <summary>
+            Parses an 'assignmentExpression' nonterminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.conditionalOrExpression">
+            <summary>
+            Parses a 'conditionalOrExpression' nonterminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.conditionalAndExpression">
+            <summary>
+            Parses a 'conditionalAndExpression' nonterminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.orExpression">
+            <summary>
+            Parses an 'orExpression' nonterminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.xorExpression">
+            <summary>
+            Parses a 'xorExpression' nonterminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.andExpression">
+            <summary>
+            Parses a 'andExpression' nonterminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.equalityExpression">
+            <summary>
+            Parses a 'equalityExpression' nonterminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.relationalExpression">
+            <summary>
+            Parses a 'relationalExpression' nonterminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.additiveExpression">
+            <summary>
+            Parses an 'additiveExpression' nonterminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.multiplicativeExpression">
+            <summary>
+            Parses a 'multiplicativeExpression' nonterminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.dotExpression">
+            <summary>
+            Parses a 'dotExpression' nonterminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.unaryExpression">
+            <summary>
+            Parses an 'unaryExpression' nonterminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.paramList">
+            <summary>
+            Parses a 'paramList' nonterminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.ParseCurrent(MindFusion.Scripting.TokenType)">
+            <summary>
+            Parses a terminal of the specified type at the current
+            parsing position within the token list.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.Text">
+            <summary>
+            Parses a 'Text' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.Osb">
+            <summary>
+            Parses an 'Osb' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.Csb">
+            <summary>
+            Parses a 'Csb' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.Comma">
+            <summary>
+            Parses a 'Comma' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.Ob">
+            <summary>
+            Parses an 'Ob' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.Cb">
+            <summary>
+            Parses a 'Cb' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpAdd">
+            <summary>
+            Parses an 'OpAdd' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpSubtract">
+            <summary>
+            Parses an 'OpSubtract' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpNot">
+            <summary>
+            Parses an 'OpNot' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpMultiply">
+            <summary>
+            Parses an 'OpMultiply' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpDivide">
+            <summary>
+            Parses an 'OpDivide' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpMod">
+            <summary>
+            Parses an 'OpMod' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpLess">
+            <summary>
+            Parses an 'OpLess' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpLessOrEqual">
+            <summary>
+            Parses an 'OpLessOrEqual' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpGreater">
+            <summary>
+            Parses an 'OpGreater' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpGreaterOrEqual">
+            <summary>
+            Parses an 'OpGreaterOrEqual' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpEqual">
+            <summary>
+            Parses an 'OpEqual' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpNotEqual">
+            <summary>
+            Parses an 'OpNotEqual' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpAnd">
+            <summary>
+            Parses an 'OpAnd' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpOr">
+            <summary>
+            Parses an 'OpOr' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpXor">
+            <summary>
+            Parses an 'OpXor' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpConditionalAnd">
+            <summary>
+            Parses an 'OpConditionalAnd' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpConditionalOr">
+            <summary>
+            Parses an 'OpConditionalOr' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpDot">
+            <summary>
+            Parses an 'OpDot' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpAssign">
+            <summary>
+            Parses an 'OpAssign' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpFormat">
+            <summary>
+            Parses an 'OpFormat' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpExpressionSeparator">
+            <summary>
+            Parses an 'OpExpressionSeparator' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.OpCulture">
+            <summary>
+            Parses an 'OpCulture' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.Format">
+            <summary>
+            Parses a 'Format' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.Discard">
+            <summary>
+            Parses a 'Discard' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.Culture">
+            <summary>
+            Parses a 'Culture' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.Identifier">
+            <summary>
+            Parses an 'Identifier' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.IntNumber">
+            <summary>
+            Parses an 'IntNumber' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.String">
+            <summary>
+            Parses a 'String' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.Null">
+            <summary>
+            Parses a 'null' keyword.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.FloatNumber">
+            <summary>
+            Parses a 'FloatNumber' terminal.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Parser.Color">
+            <summary>
+            Parses a 'Color' terminal.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.Parser.tokens">
+            <summary>
+            The list of tokens to parse.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.Parser.current">
+            <summary>
+            The current parsing position.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.Parser.CurrentToken">
+            <summary>
+            Gets the current token.
+            </summary>
+        </member>
+        <member name="T:MindFusion.Scripting.Token">
+            <summary>
+            Represents a recognized token from a sequence of characters, which
+            conforms to the MindFusion Grammar.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Token.#ctor(System.String,MindFusion.Scripting.TokenType)">
+            <summary>
+            Initializes a new instance of the Token class.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Token.ToString">
+            <summary>
+            Object.ToString override.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.Token.text">
+            <summary>
+            The text of the token.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.Token.type">
+            <summary>
+            The type of the token.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.Token.Text">
+            <summary>
+            Gets the token text.
+            </summary>
+        </member>
+        <member name="P:MindFusion.Scripting.Token.Type">
+            <summary>
+            Gets the token type.
+            </summary>
+        </member>
+        <member name="T:MindFusion.Scripting.Functions">
+            <summary>
+            Provides the implementation of all functions available in expressions.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.#ctor(System.Globalization.CultureInfo)">
+            <summary>
+            Initializes a new instance of the Functions class.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Now">
+            <summary>
+            Returns the current system date and time.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.E">
+            <summary>
+            Represents the natural logarithmic base, specified by the constant, e.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.PI">
+            <summary>
+            Represents the ratio of the circumference of a circle to
+            its diameter, specified by the constant, n.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Today">
+            <summary>
+            Returns the current system date.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Abs(System.Double)">
+            <summary>
+            Returns the absolute value of the specified double-precision
+            floating-point number.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Asc(System.String)">
+            <summary>
+            Returns an Integer representing the character code corresponding
+            to the first letter in a string.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Atn(System.Double)">
+            <summary>
+            Returns the angle, measured in radians, whose tangent is
+            the specified number.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Chr(System.Int32)">
+            <summary>
+            Returns a String containing the character associated with the
+            specified character code.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.CBool(System.Object)">
+            <summary>
+            Converts the specified object to a boolean.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.CDate(System.Object)">
+            <summary>
+            Converts the specified object to a DateTime.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.CDbl(System.Object)">
+            <summary>
+            Converts the specified object to a double.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.CInt(System.Object)">
+            <summary>
+            Converts the specified object to an integer.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.CLong(System.Object)">
+            <summary>
+            Converts the specified object to a long.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.CSng(System.Object)">
+            <summary>
+            Converts the specified object to a float.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.CStr(System.Object)">
+            <summary>
+            Converts the specified object to a string.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Cos(System.Double)">
+            <summary>
+            Returns the cosine of the specified angle.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Acos(System.Double)">
+            <summary>
+            Returns the angle whose cosine is the specified number.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Day(System.DateTime)">
+            <summary>
+            Returns an integer specifying a whole number between 1 and 31,
+            inclusive, representing the day of the month of the specified date.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Exp(System.Double)">
+            <summary>
+            Returns e raised to the specified power.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Hour(System.DateTime)">
+            <summary>
+            Returns an integer specifying a whole number between 0 and 23,
+            inclusive, representing the hour of the day of the specified date.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Int(System.Double)">
+            <summary>
+            Returns the integer portion of the specified number.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.IsDate(System.Object)">
+            <summary>
+            Returns a boolean value indicating whether the specified
+            value can be converted to a date.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.IsNull(System.Object)">
+            <summary>
+            Returns a boolean value indicating whether the specified
+            value is null.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.IsNumeric(System.Object)">
+            <summary>
+            Returns a boolean value indicating whether the specified
+            object can be converted to a number.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.LCase(System.String)">
+            <summary>
+            Returns the specified string converted to lowercase.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Len(System.String)">
+            <summary>
+            Returns the number of characters in the specified string.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Log(System.Double)">
+            <summary>
+            Returns the natural (base e) logarithm of the specified value.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.LTrim(System.String)">
+            <summary>
+            Returns a string containing a copy of the specified string
+            without leading spaces.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Minute(System.DateTime)">
+            <summary>
+            Returns an integer specifying a whole number between 0 and 59,
+            inclusive, representing the minute of the hour of the specified date.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Month(System.DateTime)">
+            <summary>
+            Returns an integer specifying a whole number between 1 and 12,
+            inclusive, representing the month of the year of the specified date.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Pow(System.Double,System.Double)">
+            <summary>
+            Returns a specified number raised to the specified power.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Rnd(System.Int32)">
+            <summary>
+            Returns a single containing a random number.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.RTrim(System.String)">
+            <summary>
+            Returns a string containing a copy of the specified string
+            without trailing spaces.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Second(System.DateTime)">
+            <summary>
+            Returns an integer specifying a whole number between 0 and 59,
+            inclusive, representing the second of the minute of the specified date.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Sgn(System.Double)">
+            <summary>
+            Returns a value indicating the sign of the specified number.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Sin(System.Double)">
+            <summary>
+            Returns the sine of the specified angle.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Asin(System.Double)">
+            <summary>
+            Returns the angle whose sine is the specified number.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Space(System.Int32)">
+            <summary>
+            Returns a string consisting of the specified number of spaces.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Sqr(System.Double)">
+            <summary>
+            Returns a double specifying the square root of a number.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Sqrt(System.Double)">
+            <summary>
+            Returns a double specifying the square root of a number.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Str(System.Double)">
+            <summary>
+            Returns a string representation of the specified number.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.StrReverse(System.String)">
+            <summary>
+            Returns a string in which the character order of the specified
+            string is reversed.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Tan(System.Double)">
+            <summary>
+            Returns the tangent of the specified angle.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Trim(System.String)">
+            <summary>
+            Returns a string containing a copy of the specified string
+            without leading and trailing spaces.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.UCase(System.String)">
+            <summary>
+            Returns the specified string converted to uppercase.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Weekday(System.DateTime)">
+            <summary>
+            Returns an integer containing a whole number representing
+            the day of the week of the specified date.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Year(System.DateTime)">
+            <summary>
+            Returns an integer containing a whole number representing
+            the year of the specified date.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.InStr(System.String,System.String)">
+            <summary>
+            Returns an integer specifying the position of the first occurrence
+            of one string within another.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.InStrRev(System.String,System.String)">
+            <summary>
+            Returns an integer specifying the position of the last occurrence
+            of one string within another.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Left(System.String,System.Int32)">
+            <summary>
+            Returns a string containing the specified number of characters
+            from the left side of the specified string.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Right(System.String,System.Int32)">
+            <summary>
+            Returns a string containing the specified number of characters
+            from the right side of the specified string.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Round(System.Double,System.Int32)">
+            <summary>
+            Rounds the specified value to the specified precision.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.StrComp(System.String,System.String)">
+            <summary>
+            Returns an integer indicating the result of the comparison
+            of the specified strings.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.String(System.Int32,System.Int32)">
+            <summary>
+            Returns a string containing the specified character repeating
+            the specified number of times.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.DatePart(System.String,System.DateTime)">
+            <summary>
+            Returns an integer containing the specified part of the specified date.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.DateAdd(System.String,System.Double,System.DateTime)">
+            <summary>
+            Returns a DateTime value containing a date to which the specified
+            time interval has been added.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.DateDiff(System.String,System.DateTime,System.DateTime)">
+            <summary>
+            Returns a long specifying the time intervals between the specified dates.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.DateSerial(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Returns a DateTime object for the specified year, month, and day.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.IIf(System.Boolean,System.Object,System.Object)">
+            <summary>
+            Returns one of two parts, depending on the value of
+            the specified condition.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Mid(System.String,System.Int32,System.Int32)">
+            <summary>
+            Returns a string containing the specified number of characters
+            from the specified string.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.Replace(System.String,System.String,System.String)">
+            <summary>
+            Returns a string in which the specified substring has been
+            replaced with another substring.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.GetDate(System.Object)">
+            <summary>
+            Returns the specified value as a date.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.GetBool(System.Object)">
+            <summary>
+            Returns the specified value as a boolean.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.GetInt32(System.Object)">
+            <summary>
+            Returns the specified value as an integer.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.GetInt64(System.Object)">
+            <summary>
+            Returns the specified value as a long.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.GetDouble(System.Object)">
+            <summary>
+            Returns the specified value as a double.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.GetString(System.Object)">
+            <summary>
+            Returns the specified value as a string.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Functions.TypeOf(System.Object)">
+            <summary>
+            Returns the type of the specified value.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.Functions.cultureInfo">
+            <summary>
+            The culture associated with this object.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.Functions.lastRandomNumber">
+            <summary>
+            The most recent random number generated by the Rnd function.
+            </summary>
+        </member>
+        <member name="F:MindFusion.Scripting.Functions.random">
+            <summary>
+            A random number generator.
+            </summary>
+        </member>
+        <member name="T:MindFusion.Scripting.Compiler">
+            <summary>
+            Provides methods for compiling expressions to byte code.
+            </summary>
+        </member>
+        <member name="M:MindFusion.Scripting.Compiler.Compile(System.String)">
+            <summary>
+            Returns a ByteCode object corresponding to the specified source code.
+            The returned byte code can be subsequently evaluated by calling its Evaluate method.
+            </summary>
+            <param name="source">
+            The script to compile.
+            </param>
+            <returns>
+            The compiled script.
+            </returns>
+        </member>
+        <member name="M:MindFusion.Scripting.Compiler.Compile(System.String,System.Boolean)">
+            <summary>
+            Returns a ByteCode object corresponding to the specified source code.
+            The returned byte code can be subsequently evaluated by calling its Evaluate method.
+            </summary>
+            <param name="source">
+            The script to compile.
+            </param>
+            <param name="normalize">
+            true to encase source in square brackets if it is not encased already; otherwise, false.
+            </param>
+            <returns>
+            The compiled script.
+            </returns>
+        </member>
+    </members>
+</doc>

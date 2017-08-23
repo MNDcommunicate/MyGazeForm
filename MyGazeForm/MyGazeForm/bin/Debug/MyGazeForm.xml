@@ -1,0 +1,42 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+MyGazeForm
+</name>
+</assembly>
+<members>
+<member name="T:MyGazeForm.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:MyGazeForm.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:MyGazeForm.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="E:MyGazeForm.GazeAwareBehavior.GazeAware">
+ <summary>
+ The event raised when the gaze moves in or out if the interactor.
+ </summary>
+</member>
+<member name="M:MyGazeForm.GazeAwareEventArgs.#ctor(System.Boolean)">
+ <summary>
+ Initializes a new instance of the <see cref="T:MyGazeForm.GazeAwareEventArgs"/> class.
+ </summary>
+ <param name="hasGaze__1">True if the gaze point falls within the bounds of the interactor.</param>
+</member>
+<member name="P:MyGazeForm.GazeAwareEventArgs.HasGaze">
+ <summary>
+ Gets a value indicating whether the gaze point falls within the bounds of the interactor.
+ </summary>
+</member>
+</members>
+</doc>
