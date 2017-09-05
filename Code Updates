@@ -1,0 +1,7 @@
+I make use of the key setup for use in the Tobii Eyetracking Utility. In my case, I use the CTRL key to the left of keyboard as the Mouse skip key for use in interactable behaviour.
+
+In my ONGAZE event handler, you can use the sendkeys function to automatically trigger the pressing of the key. 
+
+                    SendKeys.Send("^a")
+                    
+Note: in some cases keys are case sensitive; the code above trfiggers the use of the elft CTRL key.
