@@ -5,3 +5,15 @@ In my ONGAZE event handler, you can use the sendkeys function to automatically t
                     SendKeys.Send("^a")
                     
 Note: keys are case sensitive; the code above triggers the use of the left CTRL key.
+
+You can also call and trigger functions to create a user profile, calibrate and recalibrate the user. Try them out. They must be run after the host is started.
+
+            Dim EyeXHost As New EyeXFramework.Forms.FormsEyeXHost
+	          '
+	          EyeXHost.Start() ' Start using the EyeTracker
+            ' Tobii Eye Functions
+            EyeXHost.LaunchProfileCreation()
+            '
+            EyeXHost.LaunchCalibrationTesting()
+            '
+            EyeXHost.LaunchRecalibration()
